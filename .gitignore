@@ -1,0 +1,82 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Production build
+/build
+/dist
+
+# Environment variables
+.env
+.env.*.local
+
+# Database
+*.sqlite3
+*.db
+
+# Static files
+/public/static
+/public/assets
+
+# Coverage reports
+coverage/
+*.lcov
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Testing
+/coverage
+jest/
+.cypress
+
+# Serverless
+.serverless/
+
+# Webpack output
+/.pnp
+.pnp.js
+.parcel-cache
+
+# Storybook files
+storybook-static/
+
+# Optional npm cache directory
+.npm/
+
+# Parcel-bundler cache
+.cache/
+
+# eslint cache
+.eslintcache
+
+# VS Code settings
+.vscode/
+
+# Typescript
+*.tsbuildinfo
+
+# Miscellaneous
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Stylelint
+.stylelintcache
