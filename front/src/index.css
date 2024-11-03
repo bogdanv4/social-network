@@ -131,6 +131,11 @@ code {
   font-weight: 900;
   font-size: 1.2rem;
 }
+
+.notification-user button:first-child {
+  margin-right: 20px;
+}
+
 .container {
   width: 80%;
   margin: auto;
@@ -291,4 +296,47 @@ code {
   color: red;
 
   background-color: transparent;
+}
+
+/* Notification modal */
+.notification-modal-content {
+  max-height: 80%; /* Limits modal height */
+  overflow-y: auto; /* Adds vertical scroll if content overflows */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.read-all {
+  display: flex;
+  align-items: end;
+  transition: 0.3s;
+}
+
+.read-all:hover {
+  transform: scale(1.1);
+}
+
+.read-all span {
+  color: white;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.single-notification {
+  width: 90%;
+}
+
+.single-notification p {
+  text-align: left;
+  font-size: 1rem;
+}
+
+.notification-details {
+  display: block;
+}
+
+.read-no {
+  background-color: red;
 }

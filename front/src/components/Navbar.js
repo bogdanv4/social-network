@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserInfo from "../components/UserInfo";
+import NotificationModal from "./NotificationModal";
 import axios from "axios";
 
 function Navbar({ loggedInUser }) {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+  const [read, setRead] = useState(false);
+  // let newNotification = true;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -28,6 +32,19 @@ function Navbar({ loggedInUser }) {
     setIsUserInfoOpen(false);
   };
 
+  const openNotificationModal = () => {
+    setIsNotificationModalOpen(true);
+  };
+
+  const closeNotificationModal = () => {
+    setIsNotificationModalOpen(false);
+  };
+
+  const onMarkAllAsRead = (e) => {
+    e.preventDefault();
+    setRead(true);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-items">
@@ -38,7 +55,20 @@ function Navbar({ loggedInUser }) {
       <div className="navbar-items">
         <p>Social Network</p>
       </div>
-      <div className="navbar-items">
+      <div className="navbar-items notification-user">
+        <button className="icon-btn" onClick={openNotificationModal}>
+          <img
+            src={read ? "notification.png" : "new-notification.png"}
+            alt="notification-icon"
+          />
+        </button>
+        {isNotificationModalOpen && (
+          <NotificationModal
+            onClose={closeNotificationModal}
+            read={read}
+            onMarkAllAsRead={onMarkAllAsRead}
+          />
+        )}
         <button className="icon-btn" onClick={openUserInfo}>
           <img src="user.png" alt="user-icon" />
         </button>

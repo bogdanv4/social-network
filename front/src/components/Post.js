@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import CommentList from "./CommentList";
+import { toast } from "react-toastify";
 
 function Post({ loggedInUser, post, onPostDeleted }) {
   const [commentText, setCommentText] = useState("");
@@ -50,6 +51,9 @@ function Post({ loggedInUser, post, onPostDeleted }) {
 
         setComments((prevComments) => [newComment, ...prevComments]);
         setCommentText("");
+        toast.info(`New comment on your post!
+
+          ${loggedInUser.username}: ${response.data.comment.commentText} `);
       } catch (error) {
         console.log(error);
       }

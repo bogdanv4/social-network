@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function PostForm({ loggedInUser, onPostAdded }) {
   const [postText, setPostText] = useState("");
@@ -28,6 +29,9 @@ function PostForm({ loggedInUser, onPostAdded }) {
 
         onPostAdded(response.data.post);
         alert("Post added");
+        toast.info(
+          `${response.data.post.user.username}: \n${response.data.post.postText}`
+        );
         setPostText("");
       } catch (error) {
         console.log(error);
