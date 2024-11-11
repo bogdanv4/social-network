@@ -1,12 +1,13 @@
 import IndividualNotification from "./IndividualNotification";
-function NotificationList({ read }) {
+function NotificationList({ notifications }) {
   return (
     <>
-      <IndividualNotification read={read} />
-      <IndividualNotification read={read} />
-      <IndividualNotification read={read} />
-      <IndividualNotification read={read} />
-      <IndividualNotification read={read} />
+      {notifications.map((individualNotification) => (
+        <IndividualNotification
+          key={individualNotification._id}
+          individualNotification={individualNotification}
+        />
+      ))}
     </>
   );
 }

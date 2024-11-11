@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserInfo from "../components/UserInfo";
 import NotificationModal from "./NotificationModal";
 import axios from "axios";
 
-function Navbar({ loggedInUser }) {
+function Navbar({ loggedInUser, notifications, onMarkAllAsRead }) {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
-  const [read, setRead] = useState(false);
-  // let newNotification = true;
+
+  const hasUnreadNotifications = notifications.some(
+    (notification) => !notification.read
+  );
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -40,11 +43,6 @@ function Navbar({ loggedInUser }) {
     setIsNotificationModalOpen(false);
   };
 
-  const onMarkAllAsRead = (e) => {
-    e.preventDefault();
-    setRead(true);
-  };
-
   return (
     <nav className="navbar">
       <div className="navbar-items">
@@ -58,14 +56,18 @@ function Navbar({ loggedInUser }) {
       <div className="navbar-items notification-user">
         <button className="icon-btn" onClick={openNotificationModal}>
           <img
-            src={read ? "notification.png" : "new-notification.png"}
+            src={
+              hasUnreadNotifications
+                ? "new-notification.png"
+                : "notification.png"
+            }
             alt="notification-icon"
           />
         </button>
         {isNotificationModalOpen && (
           <NotificationModal
             onClose={closeNotificationModal}
-            read={read}
+            notifications={notifications}
             onMarkAllAsRead={onMarkAllAsRead}
           />
         )}

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-function PostForm({ loggedInUser, onPostAdded }) {
+function PostForm({ loggedInUser, onPostAdded, onNotificationAdded }) {
   const [postText, setPostText] = useState("");
 
   const handlePostText = (e) => {
@@ -29,9 +29,22 @@ function PostForm({ loggedInUser, onPostAdded }) {
 
         onPostAdded(response.data.post);
         alert("Post added");
-        toast.info(
-          `${response.data.post.user.username}: \n${response.data.post.postText}`
-        );
+        try {
+          const responseForNotification = await axios.post(
+            "/api/notification/addNotification",
+            {
+              notificationText: response.data.post.postText,
+              post: response.data.post,
+              user: loggedInUser,
+            }
+          );
+          onNotificationAdded(responseForNotification.data.notification);
+          toast.info(
+            `${responseForNotification.data.notification.post.user.username}: \n${responseForNotification.data.notification.notificationText}`
+          );
+        } catch (error) {
+          console.log(error);
+        }
         setPostText("");
       } catch (error) {
         console.log(error);

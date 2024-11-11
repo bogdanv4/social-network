@@ -2,10 +2,12 @@ import Navbar from "../components/Navbar";
 import PostForm from "../components/PostForm";
 import PostList from "../components/PostList";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 function HomePage() {
   const [profile, setProfile] = useState("");
   const [posts, setPosts] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     fetch("/api/getme")
@@ -26,7 +28,17 @@ function HomePage() {
       })
       .then((result) => {
         setPosts(result.posts);
-        console.log(result.posts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    fetch("api/notification/getAll")
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        setNotifications(result.notifications);
       })
       .catch((error) => {
         console.log(error);
@@ -41,11 +53,41 @@ function HomePage() {
     setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId)); // Remove the deleted post from the list
   };
 
+  const handleNotificationAdded = (notification) => {
+    setNotifications((prevNotifications) => [
+      notification,
+      ...prevNotifications,
+    ]);
+  };
+
+  const handleMarkAllAsRead = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put("/api/notification/markAllAsRead");
+      setNotifications((prevNotifications) =>
+        prevNotifications.map((notification) => ({
+          ...notification,
+          read: true,
+        }))
+      );
+    } catch (error) {
+      console.log("Error marking notifications as read:", error);
+    }
+  };
+
   return (
     <div className="home-page-wrapper">
-      <Navbar loggedInUser={profile} />
+      <Navbar
+        loggedInUser={profile}
+        notifications={notifications}
+        onMarkAllAsRead={handleMarkAllAsRead}
+      />
       <div className="container">
-        <PostForm loggedInUser={profile} onPostAdded={handlePostAdded} />
+        <PostForm
+          loggedInUser={profile}
+          onPostAdded={handlePostAdded}
+          onNotificationAdded={handleNotificationAdded}
+        />
         <h2>All posts</h2>
         <PostList
           loggedInUser={profile}

@@ -15,7 +15,6 @@ function Post({ loggedInUser, post, onPostDeleted }) {
       .get(`/api/comment/getAll/${post._id}`)
       .then((result) => {
         setComments(result.data.comments);
-        console.log(result.data.comments);
       })
       .catch((error) => {
         console.log(error);
@@ -93,7 +92,6 @@ function Post({ loggedInUser, post, onPostDeleted }) {
       });
       setNumberOfLikes(response.data.post.likes);
       setLiked(!liked);
-      console.log(action);
     } catch (error) {
       console.log(error);
     }

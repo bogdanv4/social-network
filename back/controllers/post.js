@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const Notification = require("../models/notification");
 const ErrorResponse = require("../utils/errorResponse");
 
 //Add Post
@@ -68,9 +69,15 @@ exports.deletePost = async (req, res, next) => {
     // Delete all comments associated with the post
     await Comment.deleteMany({ post: postId });
 
+    // Delete all notifications associated with the post
+    await Notification.deleteMany({ post: postId });
+
     res
       .status(200)
-      .json({ success: true, message: "Post and associated comments deleted" });
+      .json({
+        success: true,
+        message: "Post and associated comments and notifications deleted",
+      });
   } catch (error) {
     console.log(error.message);
     next(new ErrorResponse(`Cannot delete post. Error: ${error.message}`, 500));

@@ -1,7 +1,6 @@
-// import { useState } from "react";
 import NotificationList from "./NotificationList";
 
-function NotificationModal({ onClose, read, onMarkAllAsRead }) {
+function NotificationModal({ onClose, notifications, onMarkAllAsRead }) {
   return (
     <div className="user-info-overlay notification-modal-overlay">
       <div className="user-info-content notification-modal-content">
@@ -10,7 +9,7 @@ function NotificationModal({ onClose, read, onMarkAllAsRead }) {
           <img src="read-all.png" alt="read-all-icon" />
           <span>Mark all as read</span>
         </button>
-        <NotificationList read={read} />
+        <NotificationList notifications={notifications} />
 
         <button className="modal-close" onClick={onClose}>
           x
