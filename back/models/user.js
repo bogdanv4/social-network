@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 // PASSWORD ENCRYPTION

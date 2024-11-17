@@ -454,3 +454,16 @@ code {
 .read-no {
   background-color: red;
 }
+
+/* Infinite scroll */
+.scroll-loading {
+  text-align: center;
+  font-size: 20px;
+  margin: 20px;
+}
+
+.scroll-end-message {
+  text-align: center;
+  font-size: 20px;
+  margin: 20px;
+}

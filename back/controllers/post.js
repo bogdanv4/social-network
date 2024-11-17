@@ -27,10 +27,20 @@ exports.addPost = async (req, res, next) => {
 //Get All Posts
 exports.getAllPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 }).populate("user");
+    const { page = 1, limit = 3 } = req.query; // Default values: page 1, 5 posts per page
+
+    const posts = await Post.find()
+      .sort({ createdAt: -1 }) // Sort by newest first
+      .skip((page - 1) * limit) // Skip previous pages' posts
+      .limit(Number(limit)) // Limit to `limit` posts
+      .populate("user");
+
+    const totalPosts = await Post.countDocuments();
+
     res.status(201).json({
       success: true,
       posts,
+      totalPosts,
     });
   } catch (error) {
     console.log(error);
@@ -72,12 +82,10 @@ exports.deletePost = async (req, res, next) => {
     // Delete all notifications associated with the post
     await Notification.deleteMany({ post: postId });
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Post and associated comments and notifications deleted",
-      });
+    res.status(200).json({
+      success: true,
+      message: "Post and associated comments and notifications deleted",
+    });
   } catch (error) {
     console.log(error.message);
     next(new ErrorResponse(`Cannot delete post. Error: ${error.message}`, 500));
