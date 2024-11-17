@@ -1,3 +1,11 @@
+:root {
+  --txtLightBlue: #97a5ce;
+  --txtLightGrey: #ebebf2;
+  --backgroundDarkBlue: #171f38;
+  --backgroundLighterBlue: #242e4c;
+  --orange: #ee4d38;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +17,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(5, 5, 30);
+  /* background-color: rgb(5, 5, 30); */
+  background-color: var(--backgroundDarkBlue);
 }
 
 code {
@@ -26,34 +35,70 @@ code {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(86, 86, 86, 0.7);
+  /* background-color: rgba(86, 86, 86, 0.7); */
+  background-color: var(--backgroundLighterBlue);
+  border-radius: 15px;
 }
+
 .form-wrapper form {
   margin: auto;
-  padding: 20px;
+  padding: 50px;
   width: 50%;
 }
+
 .form-wrapper form h2 {
   text-align: center;
+  color: var(--txtLightGrey);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
+
 .form-wrapper form .form-field {
   margin: 20px 0;
 }
+
 .form-wrapper form label {
   display: block;
   margin-bottom: 5px;
+  color: var(--txtLightBlue);
+  font-size: 14px;
 }
+
 .form-wrapper form input {
   padding: 10px;
   width: 100%;
-  border: none;
   outline: none;
+  background-color: transparent;
+  border: 1px solid var(--backgroundDarkBlue);
+  border-radius: 5px;
+  color: #fff;
 }
+
+.form-wrapper form input:focus {
+  border: 1px solid var(--orange);
+  transition: 0.3s;
+}
+
+.form-wrapper form input::placeholder {
+  color: var(--txtLightBlue);
+}
+
 .regular-button {
   padding: 10px 20px;
-  border: none;
+  border: 1px solid var(--txtLightBlue);
   outline: none;
   cursor: pointer;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #fff;
+}
+
+.regular-button:hover {
+  background-color: var(--orange);
+  color: #fff;
+  border: 1px solid var(--orange);
+  transition: 0.3s;
 }
 
 .error {
@@ -64,15 +109,20 @@ code {
 /* Register section */
 
 .register-section {
-  padding: 20px;
+  padding-bottom: 50px;
   margin: auto;
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .register-section h2 {
   margin-bottom: 10px;
+  color: var(--txtLightGrey);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
 /* Register modal */
@@ -82,13 +132,19 @@ code {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 1);
+  background-color: var(--backgroundLighterBlue);
+  border-radius: 15px;
   width: 100%;
   color: white;
 }
+
 .modal h2 {
   text-align: center;
   padding-top: 20px;
+  color: var(--txtLightGrey);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
 .modal-close {
@@ -144,28 +200,50 @@ code {
 .container h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: var(--txtLightGrey);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
 /* Post form */
 .post-form {
-  width: 100%;
+  width: 60%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin: 15px auto;
 }
+
 .post-form textarea {
-  width: 50%;
+  width: 100%;
   height: 100px;
   resize: none;
   outline: none;
-  border: none;
+  border: 2px solid var(--backgroundLighterBlue);
+  border-radius: 10px;
+  background-color: var(--backgroundLighterBlue);
+  color: var(--txtLightGrey);
   font-size: 20px;
   padding-left: 10px;
+  padding-top: 10px;
 }
+
+.post-form textarea:focus {
+  border: 2px solid var(--orange);
+  transition: 0.3s;
+}
+
+.post-form textarea::placeholder,
+.post-comment form textarea::placeholder {
+  color: var(--txtLightBlue);
+}
+
 .post-form .regular-button {
-  margin-left: 20px;
-  width: 100px;
+  margin-top: 20px;
   font-size: 20px;
+  align-self: flex-end;
+  border-radius: 10px;
 }
 
 /* Single post */
@@ -173,9 +251,13 @@ code {
 .single-post {
   width: 60%;
   margin: 15px auto;
-  border: 2px solid white;
+  border: 2px solid var(--backgroundDarkBlue);
+  background-color: var(--backgroundLighterBlue);
+  border-radius: 10px;
   padding: 15px;
+  color: var(--txtLightGrey);
 }
+
 .single-post-text {
   padding-bottom: 10px;
 }
@@ -191,39 +273,56 @@ code {
   display: flex;
   justify-content: space-between;
 }
+
 .post-comment form textarea {
   resize: none;
-  border: none;
   outline: none;
-  padding: 0 10px;
+  border: 1px solid var(--txtLightBlue);
+  border-radius: 10px;
+  background-color: transparent;
+  color: var(--txtLightGrey);
+  padding: 10px;
   width: 100%;
   margin-right: 10px;
+}
+
+.post-comment form textarea:focus {
+  border: 1px solid var(--orange);
+  transition: 0.3s;
+}
+
+.post-comment form button {
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 .comment-buttons {
   display: flex;
 }
+
 .comment-buttons-child {
   margin: 0 10px;
   display: flex;
   align-items: end;
 }
+
 .comment-buttons-child button {
   display: flex;
   align-items: end;
 }
+
 .comment-buttons-child button span {
-  color: #fff;
+  color: var(--txtLightGrey);
   margin-left: 5px;
 }
+
 .comment-buttons img {
   width: 25px;
 }
+
 .likes p {
   margin-left: 10px;
 }
-
-/* COMMENT LIST */
 
 /* INDIVIDUAL COMMENT */
 .individual-comment {
@@ -232,21 +331,26 @@ code {
   align-items: center;
   margin: 10px 0;
 }
+
 .individual-comment-inner {
   display: flex;
   align-items: end;
 }
+
 .individual-comment-inner button img {
   display: flex;
   align-items: end;
 }
+
 .individual-comment-inner p {
   display: inline-block;
 }
+
 .individual-comment button img {
   width: 25px;
   margin: 0 10px;
 }
+
 .individual-comment button span {
   color: #fff;
 }
@@ -259,7 +363,8 @@ code {
   right: 0;
   width: 20%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--backgroundLighterBlue);
+  opacity: 0.8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -269,7 +374,7 @@ code {
   width: 100%;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
   text-align: center;
   font-size: 24px;
 }
@@ -280,23 +385,32 @@ code {
   border: none;
   outline: none;
   margin: 20px 0;
-  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--backgroundDarkBlue);
+  border-radius: 10px;
+  background-color: var(--backgroundLighterBlue);
+  color: var(--txtLightGrey);
 }
+
 .user-info-form .form-buttons {
   display: flex;
   justify-content: space-between;
 }
+
 .delete-button {
   border: 1px solid transparent;
   color: red;
+  border: 1px solid red;
+  letter-spacing: 1.2px;
+
   transition: 0.3s ease;
 }
-.delete-button:hover {
-  border: 1px solid red;
+
+/* .delete-button:hover {
+ 
   color: red;
 
-  background-color: transparent;
-}
+  color: #fff;
+} */
 
 /* Notification modal */
 .notification-modal-content {

@@ -57,7 +57,7 @@ function PostForm({ loggedInUser, onPostAdded, onNotificationAdded }) {
       <textarea
         value={postText}
         onChange={handlePostText}
-        placeholder="What is on your mind?"
+        placeholder="What's happening?"
       ></textarea>
       <button className="regular-button" onClick={handlePublishPost}>
         Publish

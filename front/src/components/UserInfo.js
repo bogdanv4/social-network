@@ -16,7 +16,7 @@ function UserInfo({ onClose, loggedInUser }) {
     if (name === "") alert("You need to add name");
     else {
       // eslint-disable-next-line no-restricted-globals
-      if (confirm("Are you sure you want to delete user")) {
+      if (confirm("Are you sure you want to update user")) {
         axios
           .put(`/api/user/updateUser/${loggedInUser._id}`, { name: name })
           .then((result) => {

@@ -81,7 +81,7 @@ function RegisterModal({ onClose }) {
         });
         console.log(signUser);
         alert("Registration successful!");
-        navigate("/home");
+        navigate("/");
       } catch (err) {
         console.log(err);
       }

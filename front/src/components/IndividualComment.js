@@ -55,7 +55,8 @@ function IndividualComment({ loggedInUser, comment, onCommentDelete }) {
         {comment.commentText}
       </p>
       <div className="individual-comment-inner">
-        {loggedInUser.username === comment.user.username ? (
+        {loggedInUser.username === comment.user.username ||
+        loggedInUser.admin === true ? (
           <button className="icon-btn" onClick={handleDeleteComment}>
             <img src="bin.png" alt="like" />
           </button>

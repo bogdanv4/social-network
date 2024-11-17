@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "Please add a password"],
       minlength: [8, "Password should have at least 8 characters"],
     },
+    admin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamp: true }
 );

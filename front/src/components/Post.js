@@ -129,12 +129,13 @@ function Post({ loggedInUser, post, onPostDeleted }) {
               <span>Comment</span>
             </button>
           </div>
-          {loggedInUser.username === post.user.username ? (
+          {loggedInUser.username === post.user.username ||
+          loggedInUser.admin === true ? (
             <button
               className="regular-button delete-button"
               onClick={handleDeletePost}
             >
-              Delete post
+              Delete
             </button>
           ) : null}
         </div>
