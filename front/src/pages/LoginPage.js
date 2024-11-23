@@ -1,3 +1,4 @@
+import GoogleLogin from "../components/GoogleLogin.js";
 import LoginForm from "../components/LoginForm.js";
 import RegisterModal from "../components/RegisterModal.js";
 import { useState } from "react";
@@ -24,6 +25,10 @@ function LoginPage() {
           </button>
         </section>
         {isModalOpen && <RegisterModal onClose={handleModalClose} />}
+        <section className="google-login">
+          <h2>or</h2>
+          <GoogleLogin />
+        </section>
       </div>
     </div>
   );

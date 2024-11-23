@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const ErrorResponse = require("../utils/errorResponse");
+const { OAuth2Client } = require("google-auth-library");
 
 exports.signup = async (req, res, next) => {
   //check if email(user) already exists
@@ -108,4 +109,62 @@ const generateToken = async (user, statusCode, res) => {
     .status(statusCode)
     .cookie("token", token, options)
     .json({ success: true, token });
+};
+
+const oAuth2Client = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  "postmessage"
+);
+
+// exports.googleSignin = async (req, res) => {
+//   const { tokens } = await oAuth2Client.getToken(req.body.code); // exchange code for tokens
+//   console.log(tokens);
+
+//   res.json(tokens);
+// };
+
+exports.googleSignin = async (req, res, next) => {
+  try {
+    // Exchange code for tokens
+    const { tokens } = await oAuth2Client.getToken(req.body.code);
+
+    // Set credentials to fetch user info
+    oAuth2Client.setCredentials(tokens);
+
+    // Fetch user info from Google
+    const ticket = await oAuth2Client.verifyIdToken({
+      idToken: tokens.id_token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+
+    // Extract user details
+    const { email, name } = payload;
+
+    const username = name.toLowerCase().replace(/\s+/g, "");
+
+    // Check if user already exists in the database
+    let user = await User.findOne({ email });
+    if (!user) {
+      // Create a new user if not found
+      user = await User.create({
+        email,
+        name,
+        username: username,
+        password: name,
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Error: User already exists",
+      });
+    }
+
+    // Log the user in by generating a token
+    generateToken(user, 200, res);
+  } catch (error) {
+    console.error("Error in Google Sign-In:", error);
+    next(new ErrorResponse("Google Sign-In failed. Please try again.", 500));
+  }
 };

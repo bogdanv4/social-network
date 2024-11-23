@@ -6,6 +6,7 @@ const {
   logout,
   singleUser,
   userProfile,
+  googleSignin,
 } = require("../controllers/auth");
 const { isAuthenticated } = require("../middleware/auth");
 
@@ -14,5 +15,7 @@ router.post("/login", login);
 router.get("/logout", logout);
 router.get("/getme", isAuthenticated, userProfile);
 router.get("/user/:id", singleUser);
+
+router.post("/auth/google", googleSignin);
 
 module.exports = router;
